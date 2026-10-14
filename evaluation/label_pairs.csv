@@ -1,0 +1,41 @@
+question_a,question_b,label
+"Explain the concept of a stack and describe its operations (push, pop, peek).","Describe the working of a stack using an array. Write a program to implement push and pop operations.",same
+"Explain the LIFO principle used in stacks. Implement a stack using a linked list.","Explain the concept of a stack and its operations. Implement a stack using arrays.",same
+"What is a stack? Explain its applications in expression evaluation and backtracking.","Explain the concept of a stack and describe its operations (push, pop, peek).",same
+"Describe the working of a stack using an array.","Explain the LIFO principle used in stacks.",same
+"What is a linked list? Differentiate between singly and doubly linked lists with suitable examples.","What is a doubly linked list? Write algorithms to insert and delete nodes.",same
+"Differentiate between a singly linked list and a doubly linked list.","What is a doubly linked list? Write algorithms to insert and delete nodes.",same
+"What is a circular linked list? Write an algorithm to insert a node in a circular linked list.","What is a linked list? Differentiate between singly and doubly linked lists with suitable examples.",same
+"Write an algorithm for binary search. What is its time complexity?","What is binary search? Write a recursive algorithm and explain with an example.",same
+"Explain binary search with a suitable example. Compare binary search with linear search.","Write an algorithm for binary search. What is its time complexity?",same
+"Explain binary search tree (BST). Write algorithms for insertion and deletion in a BST.","What is a binary search tree? Write the search algorithm.",same
+"What is a binary search tree? Write algorithms for inserting, searching, and deleting a node.","Explain binary search tree (BST). Write algorithms for insertion and deletion in a BST.",same
+"Define a queue and explain its applications in operating systems.","What is a queue? Differentiate between a simple queue and a circular queue.",same
+"Explain the concept of a priority queue and its use in scheduling algorithms.","Define a queue and explain its applications in operating systems.",same
+"Explain Bubble Sort with an example. Compare it with Insertion Sort.","Explain the merge sort algorithm with an example. What is its time complexity?",different
+"Explain the merge sort algorithm with an example. What is its time complexity?","Write and explain the algorithm for merge sort. Show its working on the array [5, 3, 8, 1, 9].",same
+"Explain heap sort. Write the algorithm and analyse its time complexity.","Explain the merge sort algorithm with an example. What is its time complexity?",different
+"Describe quick sort. Analyse its best, worst, and average case time complexity.","Describe quick sort with an example. Discuss its advantages and disadvantages.",same
+"Describe quick sort with an example. Discuss its advantages and disadvantages.","Explain Bubble Sort with an example. Compare it with Insertion Sort.",different
+"What is a binary tree? Explain in-order, pre-order, and post-order traversal with diagrams.","Explain binary search tree (BST). Write algorithms for insertion and deletion in a BST.",different
+"Explain AVL trees. How does AVL rotation maintain balance?","Explain the AVL tree and the types of rotations used to rebalance it.",same
+"What is a graph? Explain BFS and DFS traversal algorithms.","Explain DFS and BFS graph traversal with an example graph.",same
+"What is graph traversal? Explain BFS and DFS with examples.","What is a graph? Explain BFS and DFS traversal algorithms.",same
+"What is a graph? Define adjacency matrix and adjacency list representations.","What is a graph? Explain BFS and DFS traversal algorithms.",different
+"Describe the concept of hashing. What are collision resolution techniques?","What is hashing? Explain the hash function and collision resolution by separate chaining.",same
+"Describe open addressing and chaining as collision resolution techniques in hashing.","What is hashing? Describe open addressing (linear probing, quadratic probing).",same
+"Explain hashing and different collision handling strategies.","Describe the concept of hashing. What are collision resolution techniques?",same
+"What is hashing? Explain the hash function and collision resolution by separate chaining.","Describe open addressing and chaining as collision resolution techniques in hashing.",same
+"What is recursion? Explain with the help of a factorial program.","What is dynamic programming? Solve the 0/1 knapsack problem using dynamic programming.",different
+"What is dynamic programming? Solve the 0/1 knapsack problem using dynamic programming.","What is dynamic programming? Explain the longest common subsequence (LCS) problem.",same
+"What is the concept of a heap? Explain max-heap and min-heap with examples.","Explain heap sort. Write the algorithm and analyse its time complexity.",different
+"What is a stack? Explain its applications in expression evaluation and backtracking.","What is recursion? Explain with the help of a factorial program.",different
+"What is a linked list? Differentiate between singly and doubly linked lists with suitable examples.","Explain the concept of a priority queue and its use in scheduling algorithms.",different
+"Write an algorithm for binary search. What is its time complexity?","What is a graph? Explain BFS and DFS traversal algorithms.",different
+"Explain the concept of a stack and describe its operations (push, pop, peek).","What is dynamic programming? Explain the longest common subsequence (LCS) problem.",different
+"Explain AVL trees. How does AVL rotation maintain balance?","Describe the concept of hashing. What are collision resolution techniques?",different
+"What is a binary tree? Explain in-order, pre-order, and post-order traversal with diagrams.","What is the concept of a heap? Explain max-heap and min-heap with examples.",different
+"What is recursion? Explain with the help of a factorial program.","Explain binary search with a suitable example. Compare binary search with linear search.",different
+"Describe quick sort. Analyse its best, worst, and average case time complexity.","Explain the LIFO principle used in stacks. Implement a stack using a linked list.",different
+"What is a graph? Define adjacency matrix and adjacency list representations.","Explain heap sort. Write the algorithm and analyse its time complexity.",different
+"Explain DFS and BFS graph traversal with an example graph.","What is the concept of a heap? Explain max-heap and min-heap with examples.",different

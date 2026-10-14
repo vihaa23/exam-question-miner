@@ -1,0 +1,1 @@
+"""PaperPulse core sub-package."""

@@ -1,0 +1,12 @@
+University Examinations — Data Structures (CS201)
+Time: 3 Hours     Maximum Marks: 100
+
+Attempt any FIVE questions. All questions carry 10 marks each.
+
+Q.1 Describe the stack data structure. Write a C program to evaluate a postfix expression using a stack. [10]
+Q.2 What is a circular linked list? Write an algorithm to insert a node in a circular linked list. [10]
+Q.3 Explain heap sort. Write the algorithm and analyse its time complexity. [10]
+Q.4 Explain binary search with a suitable example. Compare binary search with linear search. [10]
+Q.5 What is a graph? Define adjacency matrix and adjacency list representations. [10]
+Q.6 Explain the AVL tree and the types of rotations used to rebalance it. [10]
+Q.7 What is hashing? Describe open addressing (linear probing, quadratic probing). [10]

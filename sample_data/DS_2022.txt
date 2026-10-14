@@ -1,0 +1,12 @@
+University Examinations — Data Structures (CS201)
+Time: 3 Hours     Maximum Marks: 100
+
+All questions carry equal marks. Attempt any FIVE.
+
+Q.1 What is a stack? Explain its applications in expression evaluation and backtracking. [10]
+Q.2 Write and explain the algorithm for merge sort. Show its working on the array [5, 3, 8, 1, 9]. [10]
+Q.3 Explain the structure of a binary search tree. Write the search algorithm. [10]
+Q.4 What is hashing? Explain the hash function and collision resolution by separate chaining. [10]
+Q.5 Differentiate between a singly linked list and a doubly linked list. [10]
+Q.6 Explain DFS and BFS graph traversal with an example graph. [10]
+Q.7 What is the concept of a heap? Explain max-heap and min-heap with examples. [10]

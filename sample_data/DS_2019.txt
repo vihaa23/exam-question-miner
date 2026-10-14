@@ -1,0 +1,12 @@
+University Examinations — Data Structures (CS201)
+Time: 3 Hours     Maximum Marks: 100
+
+Attempt any FIVE questions. All questions carry equal marks.
+
+Q.1 Explain the concept of a stack and describe its operations (push, pop, peek). [10]
+Q.2 What is a linked list? Differentiate between singly and doubly linked lists with suitable examples. [10]
+Q.3 Write an algorithm for binary search. What is its time complexity? [10]
+Q.4 Define a queue and explain its applications in operating systems. [10]
+Q.5 Explain Bubble Sort with an example. Compare it with Insertion Sort. [10]
+Q.6 What is a binary tree? Explain in-order, pre-order, and post-order traversal with diagrams. [10]
+Q.7 Describe the concept of hashing. What are collision resolution techniques? [10]

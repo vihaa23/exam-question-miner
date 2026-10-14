@@ -1,0 +1,12 @@
+University Examinations — Data Structures (CS201)
+Time: 3 Hours     Maximum Marks: 100
+
+Attempt any FIVE questions.
+
+Q.1 Describe the working of a stack using an array. Write a program to implement push and pop operations. [10]
+Q.2 What is recursion? Explain with the help of a factorial program. [10]
+Q.3 Explain binary search tree (BST). Write algorithms for insertion and deletion in a BST. [10]
+Q.4 What is a queue? Differentiate between a simple queue and a circular queue. [10]
+Q.5 Explain the merge sort algorithm with an example. What is its time complexity? [10]
+Q.6 What are graphs? Explain BFS and DFS traversal algorithms. [10]
+Q.7 Describe open addressing and chaining as collision resolution techniques in hashing. [10]

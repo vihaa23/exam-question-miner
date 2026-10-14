@@ -1,0 +1,51 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Embedding cache
+paperpulse/core/.embedding_cache/
+.embedding_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/
+
+# Evaluation outputs
+docs/results.md
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Uploaded PDFs (don't commit user data)
+uploads/
+*.pdf
+!sample_data/*.pdf

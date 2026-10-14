@@ -1,0 +1,12 @@
+University Examinations — Data Structures (CS201)
+Time: 3 Hours     Maximum Marks: 100
+
+Attempt any FIVE questions out of seven.
+
+Q.1 Explain the concept of a stack and its operations. Implement a stack using arrays. [10]
+Q.2 What is a binary search tree? Write algorithms for inserting, searching, and deleting a node. [10]
+Q.3 Describe quick sort with an example. Discuss its advantages and disadvantages. [10]
+Q.4 Explain the doubly linked list. Write an algorithm for deletion at a given position. [10]
+Q.5 What is graph traversal? Explain BFS and DFS with examples. [10]
+Q.6 Explain hashing and different collision handling strategies. [10]
+Q.7 What is dynamic programming? Explain the longest common subsequence (LCS) problem. [10]

@@ -1,0 +1,12 @@
+University Examinations — Data Structures (CS201)
+Time: 3 Hours     Maximum Marks: 100
+
+Answer any FIVE of the following questions. Each question carries 10 marks.
+
+Q.1 Explain the LIFO principle used in stacks. Implement a stack using a linked list. [10]
+Q.2 What is a doubly linked list? Write algorithms to insert and delete nodes. [10]
+Q.3 Describe quick sort. Analyse its best, worst, and average case time complexity. [10]
+Q.4 Explain the concept of a priority queue and its use in scheduling algorithms. [10]
+Q.5 What is a binary search? Write a recursive algorithm and explain with an example. [10]
+Q.6 Explain AVL trees. How does AVL rotation maintain balance? [10]
+Q.7 What is dynamic programming? Solve the 0/1 knapsack problem using dynamic programming. [10]
