@@ -227,14 +227,14 @@ def main() -> None:
 
     all_rows = tfidf_rows + emb_rows
 
-    print("\n── TF-IDF Results ──────────────────────────────────────")
+    print("\n-- TF-IDF Results --------------------------------------")
     print(_format_table(tfidf_rows))
 
     tfidf_best = _best_threshold(tfidf_rows)
     print(f"\nBest TF-IDF threshold: {tfidf_best['Threshold']}  F1={tfidf_best['F1']}")
 
     if emb_rows:
-        print("\n── Embedding Results ───────────────────────────────────")
+        print("\n-- Embedding Results -----------------------------------")
         print(_format_table(emb_rows))
         emb_best = _best_threshold(emb_rows)
         print(f"\nBest embedding threshold: {emb_best['Threshold']}  F1={emb_best['F1']}")

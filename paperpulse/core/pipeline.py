@@ -72,7 +72,8 @@ class PipelineResult:
 # ─────────────────────────────────────────────────────────────────
 
 def run_pipeline(
-    pdf_paths: list[str | Path],
+    file_paths: Optional[list[str | Path]] = None,
+    pdf_paths: Optional[list[str | Path]] = None,
     year_overrides: Optional[dict[str, int]] = None,
     use_ocr: bool = True,
     threshold: float = DEFAULT_THRESHOLD,
@@ -119,9 +120,10 @@ def run_pipeline(
             progress_callback(msg, frac)
 
     # ── Stage 1: Extract ─────────────────────────────────────────
-    _progress("Extracting text from PDFs…", 0.0)
+    input_paths = file_paths if file_paths is not None else (pdf_paths or [])
+    _progress("Extracting text from exam papers…", 0.0)
     extraction_results = extract_pdfs(
-        pdf_paths,
+        input_paths,
         year_overrides=year_overrides,
         use_ocr=use_ocr,
     )

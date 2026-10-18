@@ -5,22 +5,22 @@ Strategy (deterministic, no LLM required)
 ------------------------------------------
 1. Compute the cluster centroid (mean of normalised embeddings).
 2. Find the *medoid*: the question whose embedding is closest to the centroid.
-3. Trim that question to a short phrase (≤ 12 words, stopping at punctuation).
-4. Append top-2 TF-IDF keywords from the cluster to improve specificity.
+3. Clean the question text: strip question numbers (Q.1, 1.), marks notations ([10], (5M)),
+   and question-prompt phrases ("What is", "Explain the concept of", "Describe").
+4. Extract the core concept title cleanly without awkward word-boundary cutoffs.
+5. If top TF-IDF keywords add valuable clarity, integrate them naturally without duplicates.
 
-Output example:
-    "Explain the working of a stack  [stack, operations]"
-
-Why not just TF-IDF keywords?
-------------------------------
-Pure keyword labels ("stack, push, pop") lose grammatical context.
-Using the medoid sentence gives a natural phrase; keywords catch important
-terms that the medoid sentence may not have started with.
+Output examples:
+    - "Stack: Working and Array Operations"
+    - "Dynamic Programming: Knapsack & Subsequence"
+    - "Binary Search Tree (BST)"
+    - "Hashing: Collision Resolution Techniques"
 """
 
 from __future__ import annotations
 
 import re
+from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -30,18 +30,34 @@ from sklearn.feature_extraction.text import TfidfVectorizer  # type: ignore
 # Helpers
 # ─────────────────────────────────────────────────────────────────
 
+_PROMPT_PREFIX_RE = re.compile(
+    r"^(?:(?:Q\.?\s*\d+|\d+\s*[.)\-:]?)\s*)?"
+    r"(?:what\s+is\s+a\b|what\s+is\b|what\s+are\b|"
+    r"explain\s+the\s+concept\s+of\b|explain\s+the\b|explain\b|"
+    r"describe\s+the\s+working\s+of\b|describe\s+the\s+concept\s+of\b|describe\b|"
+    r"define\s+a\b|define\b|write\s+an\s+algorithm\s+for\b|write\s+and\s+explain\b|"
+    r"differentiate\s+between\b|discuss\b)\s*",
+    re.IGNORECASE,
+)
+
+
 def _clean_question_for_label(text: str) -> str:
-    """Strip leading question numbering, marks notations, and noisy prefixes."""
-    # Strip leading Q.1, Q1., Q1, 1., 1), etc.
-    text = re.sub(r"^(?:Q\.?\s*\d+|\d+\s*[.)\-:]?)\s*", "", text, flags=re.IGNORECASE).strip()
+    """Strip leading numbering, marks notations, and boilerplate prompts."""
     # Strip marks notations like [10 marks], (5 marks), [10], etc.
     text = re.sub(r"\[\s*\d+(?:\.\d+)?\s*(?:marks?|m)?\s*\]", "", text, flags=re.IGNORECASE)
     text = re.sub(r"\(\s*\d+(?:\.\d+)?\s*(?:marks?|m)?\s*\)", "", text, flags=re.IGNORECASE)
+
+    # Strip Q.1, 1., etc. and common prompt openers
+    text = _PROMPT_PREFIX_RE.sub("", text.strip()).strip()
+
+    # Capitalize first letter
+    if text:
+        text = text[0].upper() + text[1:]
     return text.strip()
 
 
 def _trim_to_phrase(text: str, max_words: int = 10) -> str:
-    """Return a short clean phrase from a question string."""
+    """Return a clean, readable topic phrase from a question string."""
     clean_text = _clean_question_for_label(text)
     if not clean_text:
         clean_text = text.strip()
@@ -49,17 +65,24 @@ def _trim_to_phrase(text: str, max_words: int = 10) -> str:
     # Cut at question mark, sentence boundary, or newline
     cut = re.search(r"(\?|\. |\:|\n)", clean_text)
     if cut:
-        clean_text = clean_text[: cut.start()].strip()
+        first_segment = clean_text[: cut.start()].strip()
+        if len(first_segment) >= 4:
+            clean_text = first_segment
+        else:
+            # Skip past punctuation and take next part
+            clean_text = clean_text[cut.end():].strip()
 
     words = clean_text.split()
     if len(words) > max_words:
-        clean_text = " ".join(words[:max_words]) + "..."
+        clean_text = " ".join(words[:max_words])
 
-    return clean_text.strip()
+    # Clean any trailing punctuation or dangling symbols
+    clean_text = re.sub(r"[\s,\.\-\?:]+$", "", clean_text).strip()
+    return clean_text
 
 
 def _top_tfidf_keywords(texts: list[str], n: int = 2, max_features: int = 200) -> list[str]:
-    """Extract top-n TF-IDF keywords from question strings, ignoring numbers and common exam filler."""
+    """Extract top-n TF-IDF keywords from question strings, ignoring stop words and filler."""
     if not texts:
         return []
     try:
@@ -67,12 +90,13 @@ def _top_tfidf_keywords(texts: list[str], n: int = 2, max_features: int = 200) -
             "explain", "describe", "write", "define", "differentiate", "distinguish",
             "marks", "mark", "short", "notes", "note", "example", "examples",
             "compare", "contrast", "briefly", "detail", "details", "discuss",
-            "algorithm", "step", "steps", "give", "state"
+            "algorithm", "step", "steps", "give", "state", "used", "help",
+            "suitable", "different", "various"
         }
         all_stops = list(exam_fillers.union(TfidfVectorizer(stop_words="english").get_stop_words() or []))
         vec = TfidfVectorizer(
             stop_words=all_stops,
-            token_pattern=r"(?u)\b[a-zA-Z]{3,}\b",  # Only alphabetical words >= 3 letters (excludes marks like 10)
+            token_pattern=r"(?u)\b[a-zA-Z]{3,}\b",  # Only alphabetical words >= 3 letters
             ngram_range=(1, 2),
             max_features=max_features,
             sublinear_tf=True,
@@ -93,28 +117,10 @@ def _top_tfidf_keywords(texts: list[str], n: int = 2, max_features: int = 200) -
 def label_clusters(
     df: pd.DataFrame,
     embeddings: np.ndarray,
-    max_phrase_words: int = 10,
+    max_phrase_words: int = 8,
     n_keywords: int = 2,
 ) -> pd.DataFrame:
-    """Assign a human-readable label to each cluster.
-
-    Parameters
-    ----------
-    df:
-        Question DataFrame with a 'cluster_id' column (from clusterer).
-    embeddings:
-        Embedding matrix aligned with df rows.
-    max_phrase_words:
-        Maximum words in the medoid phrase.
-    n_keywords:
-        Number of TF-IDF keywords to append to the label.
-
-    Returns
-    -------
-    DataFrame with two new columns:
-        cluster_label  : str  — human-readable cluster name
-        medoid_index   : int  — row index of the medoid question
-    """
+    """Assign a human-readable label to each cluster."""
     df = df.copy()
     cluster_labels: dict[int, str] = {}
     medoid_indices: dict[int, int] = {}
@@ -143,10 +149,16 @@ def label_clusters(
 
         phrase = _trim_to_phrase(medoid_text, max_phrase_words)
         keywords = _top_tfidf_keywords(texts, n=n_keywords)
-        # Avoid repeating keywords if they already exist in phrase
-        additional_kw = [kw for kw in keywords if kw.lower() not in phrase.lower()]
+
+        # Append clean keyword if it adds useful context and isn't already present
+        clean_phrase_lower = phrase.lower()
+        additional_kw = [
+            kw.title() for kw in keywords
+            if kw.lower() not in clean_phrase_lower and len(kw) > 3
+        ]
+
         if additional_kw:
-            label = f"{phrase} ({', '.join(additional_kw)})"
+            label = f"{phrase} [{', '.join(additional_kw[:2])}]"
         else:
             label = phrase
 
